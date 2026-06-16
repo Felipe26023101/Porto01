@@ -1,39 +1,31 @@
-<div class="container-cadastro">
-    <div class="cabecalho">
-        <h2>Cadastrar Novo Usuário</h2>
-    </div>
+{% load static %}
+<link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}">
+<script src="{% static 'Usuario/js/script.js' %}"></script>
 
-    <!-- O formulário precisa enviar os dados via POST -->
-    <form method="POST">
-
-        <!-- ADICIONE ESTA LINHA EXATA AQUI ABAIXO -->
-        {% csrf_token %}
-
-        <div class="campo">
-            <label for="nome">Nome Completo</label>
-            <input type="text" id="nome" name="nome" placeholder="Digite seu nome">
-        </div>
-
-        <div class="campo">
-            <label for="tipo">Tipo de Usuário</label>
-            <select id="tipo" name="tipo">
-                <option value="cliente">Passageiro</option>
-                <option value="guiche">Guichê / Operador</option>
-                <option value="administrador">Administrador</option>
-            </select>
-        </div>
-
-        <div class="campo">
-            <label for="email">E-mail</label>
-            <input type="email" id="email" name="email" placeholder="exemplo@email.com">
-        </div>
-
-        <div class="campo">
-            <label for="celular">Celular</label>
-            <input type="text" id="celular" name="celular" placeholder="(00) 00000-0000">
-        </div>
-
-        <button type="submit" class="btn-salvar">Salvar Cadastro</button>
-
-    </form>
-</div>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Usuários</title>
+</head>
+<body>
+    <h1>Usuários cadastrados</h1>
+    <table border="1">
+        <tr>
+            <th>Nome</th>
+            <th>Email</th>
+        </tr>
+        {% for usuario in usuarios %}
+        <tr>
+            <td>{{ usuario.nome }}</td>
+            <td>{{ usuario.email }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="2">Nenhum usuário encontrado.</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{% url 'cadastrar_usuario' %}">Cadastrar novo usuário</a>
+</body>
+</html>

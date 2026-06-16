@@ -6,16 +6,17 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastrar Usuário</title>
+    <title>Login - Navega Pará</title>
     <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}">
 </head>
 <body>
-    <h1>Cadastrar Usuário</h1>
+    <h1>Login</h1>
     <form method="post">
         {% csrf_token %}
-        {{ formulario.as_p }}
-        <button type="submit">Salvar</button>
+        {{ form.as_p }}
+        <button type="submit">Entrar</button>
     </form>
-    <a href="{% url 'menu' %}">Voltar ao menu</a>
 </body>
 </html>
+
+

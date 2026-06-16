@@ -9,12 +9,9 @@ class Usuario(models.Model):
 
     nome = models.CharField(max_length=100)
     tipo_de_usuario = models.CharField(max_length=50, choices=TIPO_CHOICES)
-    email = models.EmailField()
+    email = models.EmailField(unique=True)
     celular = models.CharField(max_length=20)
-    senha = models.CharField(max_length=20)
-    confirmacao = models.PositiveIntegerField()
-    def __str__(self):
-        return f"{self.nome}"
+    senha = models.CharField(max_length=128, default="")  # senha criptografada
 
     def __str__(self):
         return f"{self.nome} ({self.get_tipo_de_usuario_display()})"
@@ -27,7 +24,7 @@ class Rotas(models.Model):
     horario_saida = models.TimeField()
 
     def __str__(self):
-        return f"{self.ponto_de_partida} x {self.ponto_de_chegada}"
+        return f"{self.ponto_de_partida} → {self.ponto_de_chegada}"
 
 
 class Escala(models.Model):
@@ -40,7 +37,7 @@ class Escala(models.Model):
         ordering = ['ordem']
 
     def __str__(self):
-        return f"{self.local_parada} (Parada da rota {self.rota})"
+        return f"{self.local_parada} (Rota: {self.rota})"
 
 
 class Viagem(models.Model):

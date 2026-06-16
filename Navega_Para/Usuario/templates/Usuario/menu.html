@@ -1,0 +1,25 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}">
+<script src="{% static 'Usuario/js/script.js' %}"></script>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu Principal</title>
+    <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}">
+</head>
+<body>
+    <h1>🚤 Navega Pará - Menu</h1>
+    <nav>
+        <ul>
+            <li><a href="{% url 'cadastrar_usuario' %}">Novo Usuário</a></li>
+            <li><a href="{% url 'listar_usuarios' %}">Listar Usuários</a></li>
+            <li><a href="{% url 'listar_escalas' %}">Escalas</a></li>
+            <li><a href="{% url 'listar_rotas' %}">Rotas</a></li>
+            <li><a href="{% url 'listar_passagens' %}">Passagens</a></li>
+            <li><a href="/logout/">Sair</a></li>
+        </ul>
+    </nav>
+</body>
+</html>

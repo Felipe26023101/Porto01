@@ -1,17 +1,25 @@
 from django.shortcuts import render, redirect  # AJUSTE 1: Adicionado o redirect aqui
-from .formulario import UsuarioForm, EscalaForm, ViagemForm, RotasForm, PassagemForm  # AJUSTE 2: Adicionado Rotas e Passagem Forms
+from .formulario import UsuarioCadastroForm, EscalaForm, ViagemForm, RotasForm, PassagemForm
 from .models import Usuario, Escala, Viagem, Rotas, Passagem  # AJUSTE 3: Importado Rotas e Passagem que faltavam
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def menu_principal(request):
+    return render(request, "Usuario/menu.html")
 
 # ==================== USUÁRIOS ====================
 def cadastrar_usuario(request):
     if request.method == "POST":
-        form = UsuarioForm(request.POST)
+        form = UsuarioCadastroForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect("listar_usuarios")
+            usuario = form.save(commit=False)
+            # Se quiser salvar a senha criptografada:
+            from django.contrib.auth.hashers import make_password
+            usuario.senha = make_password(form.cleaned_data["senha"])
+            usuario.save()
+            return redirect("menu")
     else:
-        form = UsuarioForm()
-    # AJUSTE 4: Adicionado aspas no template e corrigida a indentação do retorno
+        form = UsuarioCadastroForm()
     return render(request, "Usuario/cadastrar_usuario.html", {"formulario": form})
 
 

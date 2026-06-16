@@ -1,10 +1,23 @@
 from django import forms
 from .models import Usuario, Escala, Viagem, Rotas, Passagem
 
-class UsuarioForm(forms.ModelForm):
+
+class UsuarioCadastroForm(forms.ModelForm):
+    senha = forms.CharField(widget=forms.PasswordInput, label="Senha")
+    confirmar_senha = forms.CharField(widget=forms.PasswordInput, label="Confirmar Senha")
+
     class Meta:
         model = Usuario
-        fields = ["nome", "tipo_de_usuario", "email", "celular"]
+        fields = ["nome", "tipo_de_usuario", "email", "celular", "senha"]
+
+    def clean(self):
+        cleaned_data = super().clean()
+        senha = cleaned_data.get("senha")
+        confirmar_senha = cleaned_data.get("confirmar_senha")
+
+        if senha != confirmar_senha:
+            raise forms.ValidationError("As senhas não coincidem.")
+        return cleaned_data
 
 class ViagemForm(forms.ModelForm):
     class Meta:
