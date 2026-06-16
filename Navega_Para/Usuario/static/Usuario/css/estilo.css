@@ -1,46 +1,77 @@
-/* estilo.css */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f6f9;
+/* Reset básico */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-h1 {
-    color: #2c3e50;
-    text-align: center;
-    margin-top: 20px;
+/* Corpo da página */
+body {
+    height: 100vh; /* ocupa toda a altura da tela */
+    display: flex;
+    justify-content: center; /* centraliza horizontalmente */
+    align-items: center;     /* centraliza verticalmente */
+    background-color: #f0f2f5; /* cor de fundo suave */
+    font-family: Arial, sans-serif;
 }
 
-table {
-    width: 80%;
-    margin: 20px auto;
-    border-collapse: collapse;
-    background: #fff;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+/* Caixa centralizada */
+.caixa {
+    background-color: #ffffff; /* fundo branco */
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2); /* sombra para destaque */
+    width: 400px; /* largura fixa */
+    max-width: 90%; /* responsivo em telas menores */
+    text-align: center; /* centraliza textos */
 }
 
-table th, table td {
-    border: 1px solid #ddd;
+/* Títulos */
+.caixa h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+/* Formulário */
+.caixa form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Campos de entrada */
+.caixa input, .caixa select {
     padding: 10px;
-    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
 }
 
-table th {
-    background-color: #3498db;
-    color: white;
+/* Botão */
+.caixa button {
+    padding: 12px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-button, a {
+.caixa button:hover {
+    background-color: #0056b3;
+}
+
+/* Links */
+.caixa a {
     display: inline-block;
-    margin: 10px;
-    padding: 10px 15px;
-    background: #3498db;
-    color: white;
+    margin-top: 10px;
+    color: #007bff;
     text-decoration: none;
-    border-radius: 5px;
 }
 
-button:hover, a:hover {
-    background: #2980b9;
+.caixa a:hover {
+    text-decoration: underline;
 }
