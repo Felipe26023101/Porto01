@@ -1,0 +1,31 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}">
+<script src="{% static 'Usuario/js/script.js' %}"></script>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Emitir Passagem - Navega Pará</title>
+    <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}?v=11">
+    <script src="{% static 'Usuario/js/script.js' %}" defer></script>
+</head>
+<body>
+
+    <div class="caixa">
+        <h1>Emitir Passagem</h1>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <!-- Renderiza de forma limpa: Rota, Passageiro (Nome) e Embarque -->
+            {{ form.as_p }}
+
+            <button type="submit" class="btn-azul">Emitir Passagem</button>
+        </form>
+
+        <a href="{% url 'listar_passagens' %}" class="link-padrao">Voltar para Passagens</a>
+    </div>
+
+</body>
+</html>

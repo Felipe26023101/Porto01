@@ -6,23 +6,30 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Menu Principal</title>
-    <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}">
-    <script src="{% static 'Usuario/js/script.js' %}"></script>
+    <title>Menu Principal - Navega Pará</title>
+    <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}?v=5">
+    <script src="{% static 'Usuario/js/script.js' %}" defer></script>
 </head>
 <body>
-    <div class="caixa">
-        <h1>🚤 Navega Pará - Menu</h1>
-        <nav>
-            <ul>
-                <li><a href="{% url 'cadastrar_usuario' %}">Novo Usuário</a></li>
-                <li><a href="{% url 'listar_usuarios' %}">Listar Usuários</a></li>
-                <li><a href="{% url 'listar_escalas' %}">Escalas</a></li>
-                <li><a href="{% url 'listar_rotas' %}">Rotas</a></li>
-                <li><a href="{% url 'listar_passagens' %}">Passagens</a></li>
-                <li><a href="/logout/">Sair</a></li>
-            </ul>
-        </nav>
+<div class="caixa">
+    <h1>Menu</h1>
+
+    <nav class="menu-navegacao">
+        <ul>
+            <li><a href="{% url 'cadastrar_usuario' %}">Novo Usuário</a></li>
+            <li><a href="{% url 'listar_usuarios' %}">Listar Usuários</a></li>
+            <li><a href="{% url 'listar_paradas' %}">Paradas por Rota</a></li>
+            <li><a href="{% url 'listar_rotas' %}">Rotas</a></li>
+            <li><a href="{% url 'listar_passagens' %}">Passagens</a></li>
+        </ul>
+    </nav>
+
+    <div class="container-logout">
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn-acao btn-vermelho">Sair</button>
+        </form>
     </div>
+</div>
 </body>
 </html>

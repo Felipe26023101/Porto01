@@ -1,0 +1,52 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}">
+<script src="{% static 'Usuario/js/script.js' %}"></script>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Listar Rotas - Navega Pará</title>
+    <!-- Links limpos e unificados corretamente apenas dentro do head -->
+    <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}?v=7">
+    <script src="{% static 'Usuario/js/script.js' %}" defer></script>
+</head>
+<body>
+
+    <div class="caixa larga">
+        <h1>Rotas Disponíveis</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Ponto de Partida</th>
+                    <th>Ponto de Chegada</th>
+                    <th>Dias da Semana</th>
+                    <th>Horário de Saída</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rota in rotas %}
+                <tr>
+                    <td>{{ rota.ponto_de_partida }}</td>
+                    <td>{{ rota.ponto_de_chegada }}</td>
+                    <td>{{ rota.dias_da_semana }}</td>
+                    <td>{{ rota.horario_saida|time:"H:i" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="sem-dados">Nenhuma rota cadastrada.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="rodape-botoes">
+            <!-- LINK CORRIGIDO: Agora aponta para a rota correta cadastrar_rotas -->
+            <a href="{% url 'cadastrar_rotas' %}" class="btn-acao btn-verde" style="width: auto; padding: 10px 20px;">Nova Rota</a>
+            <a href="{% url 'menu' %}" class="link-padrao" style="width: auto; margin: 0;">Voltar ao menu</a>
+        </div>
+    </div>
+
+</body>
+</html>

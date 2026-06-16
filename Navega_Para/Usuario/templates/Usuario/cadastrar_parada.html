@@ -1,0 +1,37 @@
+cadastrar_usuario.html{% load static %}
+<link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}">
+<script src="{% static 'Usuario/js/script.js' %}"></script>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Parada - Navega Pará</title>
+    <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}?v=9">
+    <script src="{% static 'Usuario/js/script.js' %}" defer></script>
+</head>
+<body>
+
+    <div class="caixa">
+        <h1>Inserir Parada na Rota</h1>
+
+        <form method="post">
+            {% csrf_token %}
+
+            {% if form.errors %}
+                <div style="color: #dc3545; background-color: #f8d7da; padding: 10px; border-radius: 6px; margin-bottom: 15px; font-size: 13px; text-align: left;">
+                    Verifique os campos digitados.
+                </div>
+            {% endif %}
+
+            <!-- O campo Rota aparecerá automaticamente como uma lista de seleção das rotas cadastradas -->
+            {{ form.as_p }}
+
+            <button type="submit" class="btn-azul">Salvar Parada</button>
+        </form>
+
+        <a href="{% url 'listar_paradas' %}" class="link-padrao">Voltar para Paradas</a>
+    </div>
+
+</body>
+</html>

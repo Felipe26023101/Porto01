@@ -1,77 +1,175 @@
-/* Reset básico */
+/* 1. RESET E ESTRUTURA BASE */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Corpo da página */
 body {
-    height: 100vh; /* ocupa toda a altura da tela */
+    height: 100vh;
     display: flex;
-    justify-content: center; /* centraliza horizontalmente */
-    align-items: center;     /* centraliza verticalmente */
-    background-color: #f0f2f5; /* cor de fundo suave */
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f2f5;
     font-family: Arial, sans-serif;
 }
 
-/* Caixa centralizada */
+/* 2. O CARD CONTAINER (Base branca) */
 .caixa {
-    background-color: #ffffff; /* fundo branco */
+    background-color: #ffffff;
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.2); /* sombra para destaque */
-    width: 400px; /* largura fixa */
-    max-width: 90%; /* responsivo em telas menores */
-    text-align: center; /* centraliza textos */
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    width: 400px;
+    max-width: 95%;
 }
 
-/* Títulos */
+.caixa.larga {
+    width: 800px;
+}
+
+/* 3. ELEMENTOS INTERNOS DO CARD */
 .caixa h1 {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     font-size: 24px;
     color: #333;
+    text-align: center;
 }
 
-/* Formulário */
 .caixa form {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-/* Campos de entrada */
+.caixa .grupo-campo, .caixa p {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 12px;
+    text-align: left;
+    width: 100%;
+}
+
+.caixa label, .caixa p label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #444;
+    text-align: left;
+    display: block;
+}
+
 .caixa input, .caixa select {
+    width: 100% !important;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 6px;
     font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
 }
 
-/* Botão */
-.caixa button {
+.caixa input:focus, .caixa select:focus {
+    border-color: #007bff;
+}
+
+/* 4. BOTÕES E LINKS */
+.caixa button, .btn-acao {
+    width: 100%;
     padding: 12px;
-    background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 6px;
     font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
+    text-decoration: none;
+    text-align: center;
     transition: background-color 0.3s;
 }
 
-.caixa button:hover {
-    background-color: #0056b3;
-}
+.btn-azul { background-color: #007bff; }
+.btn-azul:hover { background-color: #0056b3; }
 
-/* Links */
-.caixa a {
+.btn-verde { background-color: #28a745; }
+.btn-verde:hover { background-color: #218838; }
+
+.btn-vermelho { background-color: #dc3545; }
+.btn-vermelho:hover { background-color: #bd2130; }
+
+.caixa .link-padrao {
     display: inline-block;
-    margin-top: 10px;
+    margin-top: 15px;
     color: #007bff;
     text-decoration: none;
+    font-size: 14px;
+    text-align: center;
+    width: 100%;
+}
+.caixa .link-padrao:hover { text-decoration: underline; }
+
+/* 5. DESIGN DA TABELA DE LISTAGEM */
+.caixa table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 25px;
+    font-size: 15px;
 }
 
-.caixa a:hover {
-    text-decoration: underline;
+.caixa th {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 12px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.caixa td {
+    padding: 12px;
+    border-bottom: 1px solid #e0e0e0;
+    color: #444;
+    text-align: left;
+}
+
+.caixa tbody tr:nth-child(even) { background-color: #f8f9fa; }
+.caixa .sem-dados { text-align: center; color: #888; font-style: italic; padding: 20px; }
+
+.rodape-botoes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+/* 6. ESTILIZAÇÃO DO MENU PRINCIPAL */
+.menu-navegacao ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0;
+}
+
+.menu-navegacao ul li a {
+    display: block;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 15px;
+    text-align: center;
+    transition: background-color 0.2s;
+}
+
+.menu-navegacao ul li a:hover {
+    background-color: #e2e6ea;
+}
+
+.container-logout {
+    margin-top: 30px;
+    width: 100%;
 }

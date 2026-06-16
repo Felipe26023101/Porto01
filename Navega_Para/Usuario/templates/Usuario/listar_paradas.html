@@ -1,0 +1,50 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}">
+<script src="{% static 'Usuario/js/script.js' %}"></script>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Listar Paradas - Navega Pará</title>
+    <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}?v=9">
+    <script src="{% static 'Usuario/js/script.js' %}" defer></script>
+</head>
+<body>
+
+    <div class="caixa larga">
+        <h1>Paradas das Rotas</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Rota Selecionada</th>
+                    <th>Local da Parada</th>
+                    <th>Ordem do Percurso</th>
+                    <th>Horário Estimado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for parada in paradas %}
+                <tr>
+                    <td>{{ parada.rota }}</td>
+                    <td>{{ parada.local_parada }}</td>
+                    <td>{{ parada.ordem }}º parada</td>
+                    <td>{{ parada.horario_estimado|time:"H:i" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="sem-dados">Nenhuma parada inserida ainda.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="rodape-botoes">
+            <a href="{% url 'cadastrar_parada' %}" class="btn-acao btn-verde" style="width: auto; padding: 10px 20px;">Nova Parada</a>
+            <a href="{% url 'menu' %}" class="link-padrao" style="width: auto; margin: 0;">Voltar ao menu</a>
+        </div>
+    </div>
+
+</body>
+</html>

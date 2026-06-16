@@ -6,46 +6,44 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Lista de Usuários</title>
-    <style>
-        button {
-            margin-top: 15px;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <title>Lista de Usuários - Navega Pará</title>
+    <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}">
+    <script src="{% static 'Usuario/js/script.js' %}" defer></script>
 </head>
 <body>
-    <h1>Usuários cadastrados</h1>
-    <table border="1">
-        <tr>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Tipo de Usuario</th>
-        </tr>
-        {% for usuario in usuarios %}
-        <tr>
-            <td>{{ usuario.nome }}</td>
-            <td>{{ usuario.email }}</td>
-            <td>{{ usuario.tipo_de_usuario }}</td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="3">Nenhum usuário encontrado.</td>
-        </tr>
-        {% endfor %}
-    </table>
 
-    <a href="{% url 'cadastrar_usuario' %}">Cadastrar novo usuário</a>
-    <br><br>
-    <a href="{% url 'menu' %}">Voltar ao menu</a>
+    <!-- A classe dupla 'caixa larga' reaproveita o estilo estendendo o tamanho -->
+    <div class="caixa larga">
+        <h1>Usuários Cadastrados</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Tipo de Usuário</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for usuario in usuarios %}
+                <tr>
+                    <td>{{ usuario.nome }}</td>
+                    <td>{{ usuario.email }}</td>
+                    <td>{{ usuario.tipo_de_usuario }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" class="sem-dados">Nenhum usuário encontrado.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="rodape-botoes">
+            <a href="{% url 'cadastrar_usuario' %}" class="btn-acao btn-verde" style="width: auto; padding: 10px 20px;">Cadastrar novo usuário</a>
+            <a href="{% url 'menu' %}" class="link-padrao" style="width: auto; margin: 0;">Voltar ao menu</a>
+        </div>
+    </div>
+
 </body>
 </html>

@@ -6,16 +6,28 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastrar Usuário</title>
-    <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}">
+    <title>Cadastrar Usuário - Navega Pará</title>
+    <!-- Link com a versão atualizada para limpar o cache do navegador -->
+    <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}?v=6">
+    <script src="{% static 'Usuario/js/script.js' %}" defer></script>
 </head>
 <body>
-    <h1>Cadastrar Usuário</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ formulario.as_p }}
-        <button type="submit">Salvar</button>
-    </form>
-    <a href="{% url 'menu' %}">Voltar ao menu</a>
+
+    <!-- Container centralizado padrão -->
+    <div class="caixa">
+        <h1>Cadastrar Usuário</h1>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <!-- CORRIGIDO: Mudado de formulario.as_p para form.as_p -->
+            {{ form.as_p }}
+
+            <button type="submit" class="btn-azul">Salvar</button>
+        </form>
+
+        <a href="{% url 'menu' %}" class="link-padrao">Voltar ao menu</a>
+    </div>
+
 </body>
 </html>
