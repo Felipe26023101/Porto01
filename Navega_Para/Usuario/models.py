@@ -51,5 +51,6 @@ class Passagem(models.Model):
     passageiro = models.ForeignKey(Usuario, on_delete=models.CASCADE, verbose_name="Passageiro")
     numero_bilhete = models.CharField(max_length=50, blank=True, unique=True, verbose_name="Número do Bilhete")
     ponto_embarque = models.CharField(max_length=255, verbose_name="Ponto de Embarque")
+    preco = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Preço (R$)")
 
     def __str__(self): return f"Bilhete {self.numero_bilhete} - {self.passageiro.nome}"

@@ -7,29 +7,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Login - Navega Pará</title>
-    <!-- O "?v=1" força o navegador a limpar o cache e carregar o CSS novo -->
-    <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}?v=1">
+    <!-- O parâmetro ?v=20 força o navegador a limpar o cache visual quebrado -->
+    <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}?v=20">
 </head>
 <body>
 
+    <!-- Ativa o card branco centralizado do seu CSS -->
     <div class="caixa">
+
         <h1>Login</h1>
 
         <form method="post">
             {% csrf_token %}
 
+            <!-- Campo de Usuário alinhado em bloco vertical -->
             <div class="grupo-campo">
-                <label for="username">Usuário</label>
-                <input type="text" name="username" id="username" placeholder="Digite seu usuário" required>
+                <label for="id_username">E-mail</label>
+                <input type="email" name="username" id="id_username" placeholder="Digite seu e-mail" required>
             </div>
 
+            <!-- Campo de Senha alinhado em bloco vertical -->
             <div class="grupo-campo">
-                <label for="password">Senha</label>
-                <input type="password" name="password" id="password" placeholder="Digite sua senha" required>
+                <label for="id_password">Senha</label>
+                <input type="password" name="password" id="id_password" placeholder="Digite sua senha" required>
             </div>
 
+            <!-- Botão com o estilo azul oficial e largura total -->
             <button type="submit" class="btn-azul">Entrar</button>
         </form>
+
     </div>
 
 </body>

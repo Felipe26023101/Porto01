@@ -20,7 +20,7 @@ def cadastrar_usuario(request):
             usuario.username = form.cleaned_data["email"]
 
             # Criptografa a senha usando o método correto do Django
-            usuario.senha = make_password(form.cleaned_data["senha"])
+            usuario.set_password(form.cleaned_data["senha"])
 
             usuario.save()
             return redirect("listar_usuarios")  # Redireciona para a lista após salvar com sucesso
@@ -32,6 +32,28 @@ def cadastrar_usuario(request):
 def listar_usuarios(request):
     usuarios = Usuario.objects.all()
     return render(request, 'Usuario/listar_usuarios.html', {'usuarios': usuarios})
+
+# ==================== EDITAR USUÁRIO ====================
+def editar_usuario(request, id):
+    usuario = get_object_or_404(Usuario, id=id)
+
+    if request.method == "POST":
+        form = UsuarioCadastroForm(request.POST, instance=usuario)
+        if form.is_valid():
+            usuario_editado = form.save(commit=False)
+
+            # Garante que o username mude se o email mudar
+            usuario_editado.username = form.cleaned_data["email"]
+
+            if form.cleaned_data.get("senha"):
+                usuario_editado.set_password(form.cleaned_data["senha"])
+
+            usuario_editado.save()
+            return redirect("listar_usuarios")
+    else:
+        form = UsuarioCadastroForm(instance=usuario)
+
+    return render(request, "Usuario/cadastrar_usuario.html", {"form": form, "editando": True})
 
 # ==================== PARADAS ====================
 def cadastrar_parada(request):
@@ -127,29 +149,6 @@ def excluir_passagem(request, id):
     passagem = get_object_or_404(Passagem, id=id)
     passagem.delete()
     return redirect("listar_passagens")
-
-
-# ==================== EDITAR USUÁRIO ====================
-def editar_usuario(request, id):
-    usuario = get_object_or_404(Usuario, id=id)
-
-    if request.method == "POST":
-        form = UsuarioCadastroForm(request.POST, instance=usuario)
-        if form.is_valid():
-            usuario_editado = form.save(commit=False)
-
-            # Garante que o username mude se o email mudar
-            usuario_editado.username = form.cleaned_data["email"]
-
-            if form.cleaned_data.get("senha"):
-                usuario_editado.senha = make_password(form.cleaned_data["senha"])
-
-            usuario_editado.save()
-            return redirect("listar_usuarios")
-    else:
-        form = UsuarioCadastroForm(instance=usuario)
-
-    return render(request, "Usuario/cadastrar_usuario.html", {"form": form, "editando": True})
 
 # ==================== EXCLUIR USUÁRIO ====================
 def excluir_usuario(request, id):

@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Passagens Emitidas - Navega Pará</title>
-    <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}?v=14">
+    <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}?v=21">
     <script src="{% static 'Usuario/js/script.js' %}" defer></script>
 </head>
 <body>
@@ -23,6 +23,7 @@
                     <th>Rota</th>
                     <th>Passageiro</th>
                     <th>Ponto de Embarque</th>
+                    <th>Preço</th>
                     <th style="text-align: center; width: 180px;">Ações</th>
                 </tr>
             </thead>
@@ -33,16 +34,21 @@
                     <td>{{ passagem.rota }}</td>
                     <td>{{ passagem.passageiro.nome }}</td>
                     <td>{{ passagem.ponto_embarque }}</td>
+                    <td><strong>R$ {{ passagem.preco|floatformat:2 }}</strong></td>
                     <td>
                         <div style="display: flex; gap: 8px; justify-content: center;">
-                            <a href="{% url 'editar_passagem' passagem.id %}" class="btn-acao btn-azul" style="padding: 6px 12px; font-size: 13px;">Editar</a>
-                            <a href="{% url 'excluir_passagem' passagem.id %}" class="btn-acao btn-vermelho" style="padding: 6px 12px; font-size: 13px;" onclick="return confirm('Tem certeza que deseja cancelar/excluir esta passagem?');">Excluir</a>
+                            <a href="{% url 'editar_passagem' passagem.id %}"
+                               class="btn-acao btn-azul" style="padding: 6px 12px; font-size: 13px;">Editar</a>
+                            <a href="{% url 'excluir_passagem' passagem.id %}"
+                               class="btn-acao btn-vermelho"
+                               style="padding: 6px 12px; font-size: 13px;"
+                               onclick="return confirm('Tem certeza que deseja cancelar/excluir esta passagem?');">Excluir</a>
                         </div>
                     </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="5" class="sem-dados">Nenhuma passagem emitida até o momento.</td>
+                    <td colspan="6" class="sem-dados">Nenhuma passagem emitida até o momento.</td>
                 </tr>
                 {% endfor %}
             </tbody>

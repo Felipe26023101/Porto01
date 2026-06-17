@@ -57,7 +57,16 @@ class NomePassageiroModelChoiceField(forms.ModelChoiceField):
         return obj.nome
 
 class PassagemForm(BootstrapModelForm):
-    passageiro = NomePassageiroModelChoiceField(queryset=Usuario.objects.all(), label="Passageiro")
+    passageiro = NomePassageiroModelChoiceField(
+        queryset=Usuario.objects.all(),
+        label="Passageiro"
+    )
+
     class Meta:
         model = Passagem
-        fields = ["rota", "passageiro", "ponto_embarque"]
+
+        fields = ["rota", "passageiro", "ponto_embarque", "preco"]
+        widgets = {
+
+            'preco': forms.NumberInput(attrs={'step': '0.01', 'placeholder': '0,00'}),
+        }
