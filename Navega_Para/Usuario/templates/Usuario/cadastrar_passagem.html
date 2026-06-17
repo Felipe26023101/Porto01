@@ -12,20 +12,21 @@
 </head>
 <body>
 
-    <div class="caixa">
-        <h1>Emitir Passagem</h1>
+<div class="caixa">
+    <h1>{% if editando %}Editar Passagem{% else %}Emitir Passagem{% endif %}</h1>
 
-        <form method="post">
-            {% csrf_token %}
 
-            <!-- Renderiza de forma limpa: Rota, Passageiro (Nome) e Embarque -->
-            {{ form.as_p }}
+    <form method="post">
+        {% csrf_token %}
 
-            <button type="submit" class="btn-azul">Emitir Passagem</button>
-        </form>
+        <!-- Renderiza de forma limpa: Rota, Passageiro (Nome) e Embarque -->
+        {{ form.as_p }}
 
-        <a href="{% url 'listar_passagens' %}" class="link-padrao">Voltar para Passagens</a>
-    </div>
+        <button type="submit" class="btn-azul">Emitir Passagem</button>
+    </form>
+
+    <a href="{% url 'listar_passagens' %}" class="link-padrao">Voltar para Passagens</a>
+</div>
 
 </body>
 </html>

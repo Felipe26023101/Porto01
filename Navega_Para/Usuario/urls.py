@@ -20,4 +20,21 @@ urlpatterns = [
     # Passagens
     path('passagens/cadastrar/', views.cadastrar_passagem, name='cadastrar_passagem'),
     path('passagens/', views.listar_passagens, name='listar_passagens'),
+
+    # Rotas de Edição e Exclusão
+    path('rotas/editar/<int:id>/', views.editar_rota, name='editar_rota'),
+    path('rotas/excluir/<int:id>/', views.excluir_rota, name='excluir_rota'),
+
+    # Passagens de Edição e Exclusão
+    path('passagens/editar/<int:id>/', views.editar_passagem, name='editar_passagem'),
+    path('passagens/excluir/<int:id>/', views.excluir_passagem, name='excluir_passagem'),
+
+    # Usuários de Edição e Exclusão
+    path('usuarios/editar/<int:id>/', views.editar_usuario, name='editar_usuario'),
+    path('usuarios/excluir/<int:id>/', views.excluir_usuario, name='excluir_usuario'),
+
+    # Paradas de Edição e Exclusão
+    path('paradas/editar/<int:id>/', views.editar_parada, name='editar_parada'),
+    path('paradas/excluir/<int:id>/', views.excluir_parada, name='excluir_parada'),
+
 ]

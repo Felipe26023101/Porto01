@@ -13,26 +13,27 @@ cadastrar_usuario.htmlcadastrar_usuario.html{% load static %}
 </head>
 <body>
 
-    <div class="caixa">
-        <h1>Cadastrar Rota</h1>
+<div class="caixa">
+    <h1>{% if editando %}Editar Rota{% else %}Cadastrar Rota{% endif %}</h1>
 
-        <form method="post">
-            {% csrf_token %}
 
-            <!-- Mostra se o Django recusou o formulário por erro de preenchimento -->
-            {% if form.errors %}
-                <div style="color: #dc3545; background-color: #f8d7da; padding: 10px; border-radius: 6px; margin-bottom: 15px; font-size: 13px; text-align: left;">
-                    Por favor, corrija os erros abaixo.
-                </div>
-            {% endif %}
+    <form method="post">
+        {% csrf_token %}
 
-            {{ form.as_p }}
+        <!-- Mostra se o Django recusou o formulário por erro de preenchimento -->
+        {% if form.errors %}
+        <div style="color: #dc3545; background-color: #f8d7da; padding: 10px; border-radius: 6px; margin-bottom: 15px; font-size: 13px; text-align: left;">
+            Por favor, corrija os erros abaixo.
+        </div>
+        {% endif %}
 
-            <button type="submit" class="btn-azul">Salvar Rota</button>
-        </form>
+        {{ form.as_p }}
 
-        <a href="{% url 'listar_rotas' %}" class="link-padrao">Voltar para Rotas</a>
-    </div>
+        <button type="submit" class="btn-azul">Salvar Rota</button>
+    </form>
+
+    <a href="{% url 'listar_rotas' %}" class="link-padrao">Voltar para Rotas</a>
+</div>
 
 </body>
 </html>

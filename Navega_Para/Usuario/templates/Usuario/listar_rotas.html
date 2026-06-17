@@ -7,8 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Listar Rotas - Navega Pará</title>
-    <!-- Links limpos e unificados corretamente apenas dentro do head -->
-    <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}?v=7">
+    <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}?v=13">
     <script src="{% static 'Usuario/js/script.js' %}" defer></script>
 </head>
 <body>
@@ -23,6 +22,7 @@
                     <th>Ponto de Chegada</th>
                     <th>Dias da Semana</th>
                     <th>Horário de Saída</th>
+                    <th style="text-align: center; width: 180px;">Ações</th> <!-- Nova coluna -->
                 </tr>
             </thead>
             <tbody>
@@ -32,17 +32,23 @@
                     <td>{{ rota.ponto_de_chegada }}</td>
                     <td>{{ rota.dias_da_semana }}</td>
                     <td>{{ rota.horario_saida|time:"H:i" }}</td>
+                    <!-- Botões de Ação rápidos alinhados horizontalmente -->
+                    <td>
+                        <div style="display: flex; gap: 8px; justify-content: center;">
+                            <a href="{% url 'editar_rota' rota.id %}" class="btn-acao btn-azul" style="padding: 6px 12px; font-size: 13px;">Editar</a>
+                            <a href="{% url 'excluir_rota' rota.id %}" class="btn-acao btn-vermelho" style="padding: 6px 12px; font-size: 13px;" onclick="return confirm('Tem certeza que deseja excluir esta rota?');">Excluir</a>
+                        </div>
+                    </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="4" class="sem-dados">Nenhuma rota cadastrada.</td>
+                    <td colspan="5" class="sem-dados">Nenhuma rota cadastrada.</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
 
         <div class="rodape-botoes">
-            <!-- LINK CORRIGIDO: Agora aponta para a rota correta cadastrar_rotas -->
             <a href="{% url 'cadastrar_rotas' %}" class="btn-acao btn-verde" style="width: auto; padding: 10px 20px;">Nova Rota</a>
             <a href="{% url 'menu' %}" class="link-padrao" style="width: auto; margin: 0;">Voltar ao menu</a>
         </div>

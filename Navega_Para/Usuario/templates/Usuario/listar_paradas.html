@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Listar Paradas - Navega Pará</title>
-    <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}?v=9">
+    <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}?v=16">
     <script src="{% static 'Usuario/js/script.js' %}" defer></script>
 </head>
 <body>
@@ -22,6 +22,7 @@
                     <th>Local da Parada</th>
                     <th>Ordem do Percurso</th>
                     <th>Horário Estimado</th>
+                    <th style="text-align: center; width: 180px;">Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,10 +32,16 @@
                     <td>{{ parada.local_parada }}</td>
                     <td>{{ parada.ordem }}º parada</td>
                     <td>{{ parada.horario_estimado|time:"H:i" }}</td>
+                    <td>
+                        <div style="display: flex; gap: 8px; justify-content: center;">
+                            <a href="{% url 'editar_parada' parada.id %}" class="btn-acao btn-azul" style="padding: 6px 12px; font-size: 13px;">Editar</a>
+                            <a href="{% url 'excluir_parada' parada.id %}" class="btn-acao btn-vermelho" style="padding: 6px 12px; font-size: 13px;" onclick="return confirm('Tem certeza que deseja remover esta parada?');">Excluir</a>
+                        </div>
+                    </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="4" class="sem-dados">Nenhuma parada inserida ainda.</td>
+                    <td colspan="5" class="sem-dados">Nenhuma parada inserida ainda.</td>
                 </tr>
                 {% endfor %}
             </tbody>

@@ -12,26 +12,27 @@ cadastrar_usuario.html{% load static %}
 </head>
 <body>
 
-    <div class="caixa">
-        <h1>Inserir Parada na Rota</h1>
+<div class="caixa">
+    <h1>{% if editando %}Editar Parada{% else %}Inserir Parada na Rota{% endif %}</h1>
 
-        <form method="post">
-            {% csrf_token %}
 
-            {% if form.errors %}
-                <div style="color: #dc3545; background-color: #f8d7da; padding: 10px; border-radius: 6px; margin-bottom: 15px; font-size: 13px; text-align: left;">
-                    Verifique os campos digitados.
-                </div>
-            {% endif %}
+    <form method="post">
+        {% csrf_token %}
 
-            <!-- O campo Rota aparecerá automaticamente como uma lista de seleção das rotas cadastradas -->
-            {{ form.as_p }}
+        {% if form.errors %}
+        <div style="color: #dc3545; background-color: #f8d7da; padding: 10px; border-radius: 6px; margin-bottom: 15px; font-size: 13px; text-align: left;">
+            Verifique os campos digitados.
+        </div>
+        {% endif %}
 
-            <button type="submit" class="btn-azul">Salvar Parada</button>
-        </form>
+        <!-- O campo Rota aparecerá automaticamente como uma lista de seleção das rotas cadastradas -->
+        {{ form.as_p }}
 
-        <a href="{% url 'listar_paradas' %}" class="link-padrao">Voltar para Paradas</a>
-    </div>
+        <button type="submit" class="btn-azul">Salvar Parada</button>
+    </form>
+
+    <a href="{% url 'listar_paradas' %}" class="link-padrao">Voltar para Paradas</a>
+</div>
 
 </body>
 </html>

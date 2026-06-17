@@ -6,13 +6,12 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Lista de Usuários - Navega Pará</title>
-    <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}">
+    <title>Usuários Cadastrados - Navega Pará</title>
+    <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}?v=15">
     <script src="{% static 'Usuario/js/script.js' %}" defer></script>
 </head>
 <body>
 
-    <!-- A classe dupla 'caixa larga' reaproveita o estilo estendendo o tamanho -->
     <div class="caixa larga">
         <h1>Usuários Cadastrados</h1>
 
@@ -22,6 +21,7 @@
                     <th>Nome</th>
                     <th>E-mail</th>
                     <th>Tipo de Usuário</th>
+                    <th style="text-align: center; width: 180px;">Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,11 +29,17 @@
                 <tr>
                     <td>{{ usuario.nome }}</td>
                     <td>{{ usuario.email }}</td>
-                    <td>{{ usuario.tipo_de_usuario }}</td>
+                    <td>{{ usuario.get_tipo_de_usuario_display }}</td>
+                    <td>
+                        <div style="display: flex; gap: 8px; justify-content: center;">
+                            <a href="{% url 'editar_usuario' usuario.id %}" class="btn-acao btn-azul" style="padding: 6px 12px; font-size: 13px;">Editar</a>
+                            <a href="{% url 'excluir_usuario' usuario.id %}" class="btn-acao btn-vermelho" style="padding: 6px 12px; font-size: 13px;" onclick="return confirm('Tem certeza que deseja remover este usuário do sistema?');">Excluir</a>
+                        </div>
+                    </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="3" class="sem-dados">Nenhum usuário encontrado.</td>
+                    <td colspan="4" class="sem-dados">Nenhum usuário cadastrado.</td>
                 </tr>
                 {% endfor %}
             </tbody>

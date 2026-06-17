@@ -8,13 +8,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Passagens Emitidas - Navega Pará</title>
-    <!-- O parâmetro ?v=12 força a limpeza do cache no navegador -->
-    <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}?v=12">
+    <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}?v=14">
     <script src="{% static 'Usuario/js/script.js' %}" defer></script>
 </head>
 <body>
 
-    <!-- Container expandido (800px) ideal para a exibição de dados e tabelas -->
     <div class="caixa larga">
         <h1>Passagens Emitidas</h1>
 
@@ -25,28 +23,31 @@
                     <th>Rota</th>
                     <th>Passageiro</th>
                     <th>Ponto de Embarque</th>
+                    <th style="text-align: center; width: 180px;">Ações</th>
                 </tr>
             </thead>
             <tbody>
                 {% for passagem in passagens %}
                 <tr>
-                    <!-- Número sequencial automático formatado (Ex: 0001) -->
                     <td><strong>{{ passagem.numero_bilhete }}</strong></td>
-                    <!-- Exibe a Rota vinculada diretamente -->
                     <td>{{ passagem.rota }}</td>
-                    <!-- Exibe apenas o nome limpo do Passageiro -->
                     <td>{{ passagem.passageiro.nome }}</td>
                     <td>{{ passagem.ponto_embarque }}</td>
+                    <td>
+                        <div style="display: flex; gap: 8px; justify-content: center;">
+                            <a href="{% url 'editar_passagem' passagem.id %}" class="btn-acao btn-azul" style="padding: 6px 12px; font-size: 13px;">Editar</a>
+                            <a href="{% url 'excluir_passagem' passagem.id %}" class="btn-acao btn-vermelho" style="padding: 6px 12px; font-size: 13px;" onclick="return confirm('Tem certeza que deseja cancelar/excluir esta passagem?');">Excluir</a>
+                        </div>
+                    </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="4" class="sem-dados">Nenhuma passagem emitida até o momento.</td>
+                    <td colspan="5" class="sem-dados">Nenhuma passagem emitida até o momento.</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
 
-        <!-- Alinhamento dos botões inferiores: um na esquerda e outro na direita -->
         <div class="rodape-botoes">
             <a href="{% url 'cadastrar_passagem' %}" class="btn-acao btn-verde" style="width: auto; padding: 10px 20px;">Emitir Passagem</a>
             <a href="{% url 'menu' %}" class="link-padrao" style="width: auto; margin: 0;">Voltar ao menu</a>
