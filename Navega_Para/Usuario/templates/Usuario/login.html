@@ -2,42 +2,54 @@
 <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}">
 <script src="{% static 'Usuario/js/script.js' %}"></script>
 
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <title>Login - Navega Pará</title>
-    <!-- O parâmetro ?v=20 força o navegador a limpar o cache visual quebrado -->
-    <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}?v=20">
+    <!-- O parâmetro ?v=29 força o provedor a limpar o cache visual antigo -->
+    <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}?v=29">
 </head>
 <body>
 
-    <!-- Ativa o card branco centralizado do seu CSS -->
-    <div class="caixa">
+<!-- Caixa centralizada padrão (Card branco com sombras) -->
+<div class="caixa">
 
-        <h1>Login</h1>
-
-        <form method="post">
-            {% csrf_token %}
-
-            <!-- Campo de Usuário alinhado em bloco vertical -->
-            <div class="grupo-campo">
-                <label for="id_username">E-mail</label>
-                <input type="email" name="username" id="id_username" placeholder="Digite seu e-mail" required>
-            </div>
-
-            <!-- Campo de Senha alinhado em bloco vertical -->
-            <div class="grupo-campo">
-                <label for="id_password">Senha</label>
-                <input type="password" name="password" id="id_password" placeholder="Digite sua senha" required>
-            </div>
-
-            <!-- Botão com o estilo azul oficial e largura total -->
-            <button type="submit" class="btn-azul">Entrar</button>
-        </form>
-
+    <!-- Procure pelo bloco da imagem no seu login.html e substitua por este: -->
+    <div style="text-align: center; margin-bottom: 25px;">
+        <img src="{% static 'Usuario/imagens/logo.png' %}"
+             alt="Logo Navega Pará"
+             style="max-width: 220px; width: 100%; height: auto; display: block; margin: 0 auto; object-fit: contain;">
     </div>
+
+
+    <h1>Login</h1>
+
+    <!-- Alertas de erro caso as credenciais estejam erradas -->
+    {% if form.errors or erro %}
+    <div style="color: #dc3545; background-color: #f8d7da; padding: 10px; border-radius: 6px; margin-bottom: 15px; font-size: 13px; text-align: left; font-weight: bold;">
+        E-mail ou senha incorretos.
+    </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="grupo-campo">
+            <label for="username">E-mail</label>
+            <input type="email" name="username" id="username" placeholder="Digite seu e-mail" required>
+        </div>
+
+        <div class="grupo-campo">
+            <label for="password">Senha</label>
+            <input type="password" name="password" id="password" placeholder="Digite sua senha" required>
+        </div>
+
+        <button type="submit" class="btn-azul">Entrar</button>
+    </form>
+
+</div>
 
 </body>
 </html>
-
