@@ -2,28 +2,43 @@
 <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}">
 <script src="{% static 'Usuario/js/script.js' %}"></script>
 
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <title>Menu Principal - Navega Pará</title>
-    <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}?v=5">
+    <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}?v=26">
     <script src="{% static 'Usuario/js/script.js' %}" defer></script>
 </head>
 <body>
 <div class="caixa">
+    <!-- Identificação visual simples do usuário no topo -->
+    <h2 style="font-size: 14px; color: #666; text-align: center; margin-bottom: 5px;">Olá, {{ request.user.nome }}</h2>
     <h1>Menu</h1>
 
     <nav class="menu-navegacao">
         <ul>
-            <li><a href="{% url 'cadastrar_usuario' %}">Novo Usuário</a></li>
-            <li><a href="{% url 'listar_usuarios' %}">Listar Usuários</a></li>
+            <!-- CORREÇÃO E RESTRIÇÃO: Oculta o controle de usuários se for Passageiro (cliente) -->
+            {% if request.user.tipo_de_usuario != 'cliente' %}
+                <li><a href="{% url 'cadastrar_usuario' %}">Novo Usuário</a></li>
+                <li><a href="{% url 'listar_usuarios' %}">Listar Usuários</a></li>
+            {% endif %}
+
+            <!-- CORREÇÃO CRUCIAL: Mudado fixamente de 'listar_escalas' para 'listar_paradas' -->
             <li><a href="{% url 'listar_paradas' %}">Paradas por Rota</a></li>
             <li><a href="{% url 'listar_rotas' %}">Rotas</a></li>
-            <li><a href="{% url 'listar_passagens' %}">Passagens</a></li>
+
+            <!-- Adapta o texto do link de acordo com o nível de acesso -->
+            <li>
+                <a href="{% url 'listar_passagens' %}">
+                    {% if request.user.tipo_de_usuario == 'cliente' %}Meus Bilhetes{% else %}Passagens{% endif %}
+                </a>
+            </li>
         </ul>
     </nav>
 
+    <!-- Formulário seguro via método POST para efetuar o Logout -->
     <div class="container-logout">
         <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}

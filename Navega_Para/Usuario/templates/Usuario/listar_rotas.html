@@ -2,12 +2,13 @@
 <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}">
 <script src="{% static 'Usuario/js/script.js' %}"></script>
 
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <title>Listar Rotas - Navega Pará</title>
-    <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}?v=22">
+    <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}?v=27">
     <script src="{% static 'Usuario/js/script.js' %}" defer></script>
 </head>
 <body>
@@ -22,7 +23,10 @@
                     <th>Ponto de Chegada</th>
                     <th>Dias da Semana</th>
                     <th>Horário de Saída</th>
-                    <th style="text-align: center; width: 180px;">Ações</th> <!-- Nova coluna -->
+                    <!-- Restrição: Exibe a coluna Ações apenas para o Administrador -->
+                    {% if request.user.tipo_de_usuario == 'administrador' %}
+                        <th style="text-align: center; width: 180px;">Ações</th>
+                    {% endif %}
                 </tr>
             </thead>
             <tbody>
@@ -32,24 +36,33 @@
                     <td>{{ rota.ponto_de_chegada }}</td>
                     <td>{{ rota.dias_da_semana }}</td>
                     <td>{{ rota.horario_saida|time:"H:i" }}</td>
-                    <!-- Botões de Ação rápidos alinhados horizontalmente -->
+
+                    <!-- Restrição: Exibe os botões de controle apenas para o Administrador -->
+                    {% if request.user.tipo_de_usuario == 'administrador' %}
                     <td>
                         <div style="display: flex; gap: 8px; justify-content: center;">
                             <a href="{% url 'editar_rota' rota.id %}" class="btn-acao btn-azul" style="padding: 6px 12px; font-size: 13px;">Editar</a>
                             <a href="{% url 'excluir_rota' rota.id %}" class="btn-acao btn-vermelho" style="padding: 6px 12px; font-size: 13px;" onclick="return confirm('Tem certeza que deseja excluir esta rota?');">Excluir</a>
                         </div>
                     </td>
+                    {% endif %}
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="5" class="sem-dados">Nenhuma rota cadastrada.</td>
+                    <!-- Alinha o tamanho das colunas da tabela vazia dependendo do nível de acesso -->
+                    <td colspan="{% if request.user.tipo_de_usuario == 'administrador' %}5{% else %}4{% endif %}" class="sem-dados">
+                        Nenhuma rota cadastrada no momento.
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
 
         <div class="rodape-botoes">
-            <a href="{% url 'cadastrar_rotas' %}" class="btn-acao btn-verde" style="width: auto; padding: 10px 20px;">Nova Rota</a>
+            <!-- Restrição: Exibe o botão de cadastrar nova rota apenas para o Administrador -->
+            {% if request.user.tipo_de_usuario == 'administrador' %}
+                <a href="{% url 'cadastrar_rotas' %}" class="btn-acao btn-verde" style="width: auto; padding: 10px 20px;">Nova Rota</a>
+            {% endif %}
             <a href="{% url 'menu' %}" class="link-padrao" style="width: auto; margin: 0;">Voltar ao menu</a>
         </div>
     </div>

@@ -8,13 +8,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Passagens Emitidas - Navega Pará</title>
-    <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}?v=21">
+    <link rel="stylesheet" href="{% static 'Usuario/css/estilo.css' %}?v=25">
     <script src="{% static 'Usuario/js/script.js' %}" defer></script>
 </head>
 <body>
 
     <div class="caixa larga">
-        <h1>Passagens Emitidas</h1>
+        <!-- Muda o título dinamicamente com base no tipo de usuário -->
+        <h1>{% if request.user.tipo_de_usuario == 'cliente' %}Meus Bilhetes de Viagem{% else %}Passagens Emitidas{% endif %}</h1>
 
         <table>
             <thead>
@@ -24,7 +25,10 @@
                     <th>Passageiro</th>
                     <th>Ponto de Embarque</th>
                     <th>Preço</th>
-                    <th style="text-align: center; width: 180px;">Ações</th>
+                    <!-- Oculta a coluna de cabeçalho Ações inteira se for um Passageiro (cliente) -->
+                    {% if request.user.tipo_de_usuario != 'cliente' %}
+                        <th style="text-align: center; width: 180px;">Ações</th>
+                    {% endif %}
                 </tr>
             </thead>
             <tbody>
@@ -35,27 +39,41 @@
                     <td>{{ passagem.passageiro.nome }}</td>
                     <td>{{ passagem.ponto_embarque }}</td>
                     <td><strong>R$ {{ passagem.preco|floatformat:2 }}</strong></td>
+
+                    <!-- Gerenciamento de botões para Administradores e Operadores -->
+                    {% if request.user.tipo_de_usuario != 'cliente' %}
                     <td>
                         <div style="display: flex; gap: 8px; justify-content: center;">
-                            <a href="{% url 'editar_passagem' passagem.id %}"
-                               class="btn-acao btn-azul" style="padding: 6px 12px; font-size: 13px;">Editar</a>
-                            <a href="{% url 'excluir_passagem' passagem.id %}"
-                               class="btn-acao btn-vermelho"
-                               style="padding: 6px 12px; font-size: 13px;"
-                               onclick="return confirm('Tem certeza que deseja cancelar/excluir esta passagem?');">Excluir</a>
+                            <!-- Admin e Operador de Guichê podem editar passagens -->
+                            <a href="{% url 'editar_passagem' passagem.id %}" class="btn-acao btn-azul" style="padding: 6px 12px; font-size: 13px;">Editar</a>
+
+                            <!-- APENAS o Administrador tem permissão para Excluir/Cancelar o bilhete -->
+                            {% if request.user.tipo_de_usuario == 'administrador' %}
+                                <a href="{% url 'excluir_passagem' passagem.id %}" class="btn-acao btn-vermelho" style="padding: 6px 12px; font-size: 13px;" onclick="return confirm('Tem certeza que deseja cancelar/excluir esta passagem?');">Excluir</a>
+                            {% endif %}
                         </div>
                     </td>
+                    {% endif %}
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="6" class="sem-dados">Nenhuma passagem emitida até o momento.</td>
+                    <td colspan="{% if request.user.tipo_de_usuario == 'cliente' %}5{% else %}6{% endif %}" class="sem-dados">
+                        {% if request.user.tipo_de_usuario == 'cliente' %}
+                            Você ainda não possui nenhuma passagem emitida em seu nome.
+                        {% else %}
+                            Nenhuma passagem emitida até o momento.
+                        {% endif %}
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
 
         <div class="rodape-botoes">
-            <a href="{% url 'cadastrar_passagem' %}" class="btn-acao btn-verde" style="width: auto; padding: 10px 20px;">Emitir Passagem</a>
+            <!-- O botão verde de Emitir Passagem some para os Passageiros (clientes) -->
+            {% if request.user.tipo_de_usuario != 'cliente' %}
+                <a href="{% url 'cadastrar_passagem' %}" class="btn-acao btn-verde" style="width: auto; padding: 10px 20px;">Emitir Passagem</a>
+            {% endif %}
             <a href="{% url 'menu' %}" class="link-padrao" style="width: auto; margin: 0;">Voltar ao menu</a>
         </div>
     </div>
